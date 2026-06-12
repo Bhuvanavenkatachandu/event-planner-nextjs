@@ -1,4 +1,5 @@
 'use client';
+export const dynamic = 'force-dynamic';
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -93,9 +94,9 @@ export default function ManageEventsPage() {
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {filtered.map(event => (
-              <div key={event._id} className="card" style={{ display: 'grid', gridTemplateColumns: '100px 1fr auto', gap: '1.25rem', alignItems: 'center', padding: '1.25rem' }}>
+              <div key={event._id} className="card admin-list-item">
                 {/* Image */}
-                <div style={{ height: '72px', borderRadius: '10px', overflow: 'hidden' }}>
+                <div className="list-item-img" style={{ height: '72px', borderRadius: '10px', overflow: 'hidden' }}>
                   <img
                     src={event.image || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=200'}
                     alt={event.title}
@@ -105,8 +106,8 @@ export default function ManageEventsPage() {
                 </div>
 
                 {/* Info */}
-                <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.25rem' }}>
+                <div className="list-item-info">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.25rem', justifyContent: 'inherit' }}>
                     <h3 style={{ fontWeight: 700, fontSize: '0.95rem' }}>{event.title}</h3>
                     <span className={`badge badge-${statusColors[event.status] || 'secondary'}`}>{event.status}</span>
                     {event.featured && <span className="badge badge-warning">⭐ Featured</span>}
@@ -123,7 +124,7 @@ export default function ManageEventsPage() {
                 </div>
 
                 {/* Actions */}
-                <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                <div className="list-item-actions" style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
                   <Link href={`/events/${event._id}`} className="btn btn-secondary btn-sm" style={{ padding: '0.4rem 0.8rem', fontWeight: 600 }}>View</Link>
                   <Link href={`/admin/edit-event/${event._id}`} className="btn btn-outline btn-sm" style={{ padding: '0.4rem 0.8rem', fontWeight: 600 }}>Edit</Link>
                   <button onClick={() => setDeleteId(event._id)} className="btn btn-danger btn-sm" style={{ padding: '0.4rem 0.8rem', fontWeight: 600 }}>Delete</button>

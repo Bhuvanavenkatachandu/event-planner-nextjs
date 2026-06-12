@@ -4,6 +4,9 @@ import EventCard from '@/components/EventCard';
 import Hero from '@/components/Hero';
 import CategoryCard from '@/components/CategoryCard';
 import Newsletter from '@/components/Newsletter';
+import HowItWorks from '@/components/HowItWorks';
+import WhyChooseUs from '@/components/WhyChooseUs';
+import Testimonials from '@/components/Testimonials';
 import './home.scss';
 
 export const dynamic = 'force-dynamic';
@@ -210,7 +213,26 @@ export default async function HomePage() {
       </section>
 
 
+      {/* 4. Categories */}
+      <section className="categories-section">
+        <div className="container">
+          <div className="section-top-row" style={{ justifyContent: 'center' }}>
+            <div>
+              <h2 style={{ textAlign: 'center' }}>Browse by <span className="gradient-text">Category</span></h2>
+            </div>
+          </div>
+          <div className="categories-grid">
+            {CATEGORIES.slice(0, 6).map(name => (
+              <CategoryCard key={name} name={name} count={categoryCounts[name] || 0} />
+            ))}
+          </div>
+        </div>
+      </section>
 
+      {/* 5. Info Sections */}
+      <HowItWorks />
+      <WhyChooseUs />
+      <Testimonials />
 
       {/* 5. Newsletter */}
       <Newsletter />

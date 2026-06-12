@@ -1,4 +1,5 @@
 'use client';
+export const dynamic = 'force-dynamic';
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -58,7 +59,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Stats Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '1rem', marginBottom: '2.5rem' }}>
+        <div className="admin-stats-grid">
           {statCards.map(c => (
             <DashboardCard key={c.title} icon={c.icon} title={c.title} value={c.value} color={c.color} />
           ))}

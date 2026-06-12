@@ -641,3 +641,57 @@ input, textarea, select, button {
 .font-bold { font-weight: 700; }
 .text-muted { color: var(--text-muted); }
 .text-sm { font-size: 0.875rem; }
+
+/* ---- Admin & Dashboard Layouts ---- */
+.admin-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+@media (max-width: 1200px) {
+  .admin-stats-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .admin-stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .admin-stats-grid { grid-template-columns: 1fr; }
+}
+
+.admin-list-item {
+  display: grid;
+  grid-template-columns: 100px 1fr auto;
+  gap: 1.25rem;
+  align-items: center;
+  padding: 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .admin-list-item {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 1rem;
+    
+    .list-item-img {
+      margin: 0 auto;
+      height: 120px !important;
+      width: 100%;
+      max-width: 250px;
+    }
+    
+    .list-item-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .list-item-actions {
+      justify-content: center;
+      width: 100%;
+    }
+  }
+}
