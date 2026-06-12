@@ -1,0 +1,445 @@
+/* ============================================================
+   My Bookings — Premium Ticket-Style UI
+   ============================================================ */
+
+/* ---- Hero Banner ---- */
+.bookings-page {
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+.bookings-hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--hero-gradient);
+  padding: 4rem 0 3rem;
+  border-bottom: 1px solid var(--border);
+
+  .bookings-hero-glow {
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.18), transparent 70%);
+    filter: blur(60px);
+    pointer-events: none;
+  }
+}
+
+.bookings-hero-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.bookings-hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(139, 92, 246, 0.12);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  color: var(--accent-light);
+  border-radius: 9999px;
+  padding: 0.3rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.bookings-hero-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 0.6rem;
+}
+
+.bookings-hero-sub {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  max-width: 480px;
+  line-height: 1.65;
+}
+
+.bookings-hero-cta {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ---- Body ---- */
+.bookings-body {
+  padding-top: 2.5rem;
+  padding-bottom: 4rem;
+}
+
+/* ---- Stats Grid ---- */
+.bookings-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+
+  @media (max-width: 900px)  { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 480px)  { grid-template-columns: 1fr 1fr; }
+}
+
+.bstat-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.5s ease both;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--stat-bg);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.1), 0 0 0 1px var(--stat-color, rgba(139,92,246,0.3));
+    &::before { opacity: 1; }
+  }
+
+  .bstat-icon {
+    font-size: 1.75rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .bstat-value {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--stat-color, var(--accent));
+    line-height: 1;
+    position: relative;
+    z-index: 1;
+  }
+
+  .bstat-label {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    position: relative;
+    z-index: 1;
+  }
+}
+
+/* ---- Filter Tabs ---- */
+.bookings-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 0.35rem;
+  width: fit-content;
+  flex-wrap: wrap;
+}
+
+.bookings-tab {
+  padding: 0.55rem 1.25rem;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+
+  &:hover:not(.active) {
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  &.active {
+    background: var(--accent);
+    color: white;
+    box-shadow: 0 4px 14px rgba(139, 92, 246, 0.35);
+  }
+}
+
+/* ---- Empty State ---- */
+.bookings-empty {
+  text-align: center;
+  padding: 5rem 2rem;
+  border: 2px dashed var(--border);
+  border-radius: 24px;
+  background: var(--bg-secondary);
+
+  .bookings-empty-icon { font-size: 3.5rem; margin-bottom: 1rem; opacity: 0.6; }
+  h3 { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.4rem; margin-bottom: 0.5rem; }
+  p  { color: var(--text-secondary); }
+}
+
+/* ---- Booking Cards ---- */
+.booking-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.bcard {
+  display: grid;
+  grid-template-columns: 220px auto 1fr;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeInUp 0.5s ease both;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  &.bcard-active {
+    border-color: rgba(34, 197, 94, 0.25);
+  }
+
+  &.bcard-cancelled {
+    opacity: 0.75;
+    border-color: rgba(248, 113, 113, 0.2);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    .bcard-perforation { display: none; }
+  }
+}
+
+/* Status Ribbon */
+.bcard-ribbon {
+  position: absolute;
+  top: 16px;
+  right: -28px;
+  padding: 0.25rem 2.5rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transform: rotate(45deg);
+  z-index: 10;
+
+  &.ribbon-active {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+  }
+
+  &.ribbon-cancelled {
+    background: linear-gradient(135deg, #f87171, #dc2626);
+    color: white;
+  }
+}
+
+/* Image Section */
+.bcard-img-wrap {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+
+  @media (max-width: 768px) { height: 180px; }
+}
+
+.bcard-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+
+  .bcard:hover & {
+    transform: scale(1.05);
+  }
+}
+
+.bcard-img-placeholder {
+  width: 100%;
+  height: 100%;
+  background: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+.bcard-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, transparent 60%, var(--card-bg) 100%);
+
+  @media (max-width: 768px) {
+    background: linear-gradient(to bottom, transparent 60%, var(--card-bg) 100%);
+  }
+}
+
+.bcard-cat-badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  background: rgba(139, 92, 246, 0.9);
+  backdrop-filter: blur(8px);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  letter-spacing: 0.04em;
+}
+
+/* Ticket Perforation */
+.bcard-perforation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  background: var(--card-bg);
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    border-left: 2px dashed var(--border);
+  }
+
+  .perf-circle {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+
+    &.top  { margin-top: -9px; }
+    &.bottom { margin-bottom: -9px; }
+  }
+
+  .perf-dashes { flex: 1; }
+}
+
+/* Info Section */
+.bcard-info {
+  padding: 1.5rem 1.5rem 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: space-between;
+  overflow: hidden;
+
+  @media (max-width: 768px) { padding: 1.25rem; }
+}
+
+.bcard-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 0.75rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.bcard-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.bcard-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  .meta-icon { flex-shrink: 0; font-size: 0.9rem; }
+}
+
+/* Details Chips */
+.bcard-details-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.bcard-detail-chip {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.5rem 0.875rem;
+
+  .chip-label {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .chip-value {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text);
+
+    &.highlight {
+      background: linear-gradient(135deg, var(--accent), var(--accent3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+    }
+  }
+}
+
+/* Action Buttons */
+.bcard-actions {
+  display: flex;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+}

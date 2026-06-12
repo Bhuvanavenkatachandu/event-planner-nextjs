@@ -5,6 +5,7 @@ const EventSchema = new mongoose.Schema(
     title: {
       type: String,
       required: [true, 'Please provide an event title'],
+      trim: true,
     },
     description: {
       type: String,
@@ -13,6 +14,7 @@ const EventSchema = new mongoose.Schema(
     category: {
       type: String,
       required: [true, 'Please provide an event category'],
+      enum: ['Music', 'Sports', 'Technology', 'Business', 'Education', 'Food', 'Travel', 'Art', 'Workshop', 'Conference', 'Meetup', 'Festival', 'Other'],
     },
     date: {
       type: Date,
@@ -46,13 +48,17 @@ const EventSchema = new mongoose.Schema(
     },
     price: {
       type: Number,
-      required: [true, 'Please provide a price'],
+      default: 0,
       min: [0, 'Price cannot be negative'],
     },
     status: {
       type: String,
       enum: ['upcoming', 'completed', 'cancelled'],
       default: 'upcoming',
+    },
+    featured: {
+      type: Boolean,
+      default: false,
     },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
